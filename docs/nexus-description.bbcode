@@ -1,0 +1,103 @@
+[size=6][b]Split Controls — separate look inversion for ships and on foot (SpaceBourne 2)[/b][/size]
+
+Fly with an inverted stick and still aim normally on foot. SpaceBourne 2 has one "Invert gamepad look" option for everything, and its "Invert Mouse Y-Axis (Character)" option also flips the gamepad on foot. Split Controls gives you four independent settings:
+
+[code]
+Setting (config.lua)  Default          Means
+ShipGamepad           true (inverted)  right stick pulled back = nose up (flight style)
+ShipMouse             false (normal)   mouse up = nose up
+FootGamepad           false (normal)   right stick up = aim up
+FootMouse             false (normal)   mouse up = aim up
+[/code]
+
+Each setting takes true (inverted), false (normal) or "game" (leave it to the game's own options). Ground vehicles (hover bikes) use the ship controls in this game, so they follow the Ship settings. While a setting is true or false, it wins over the matching game option.
+
+[line]
+[size=5][b]Install (1 minute)[/b][/size]
+
+Split Controls is a Lua mod for [b]UE4SS[/b], the script loader most SpaceBourne 2 mods use.
+
+[list=1]
+[*]Download SplitControls-0.1.0.zip from [url=https://github.com/hubertdungen/SpaceBourne2-SplitControls/releases/latest]GitHub Releases[/url] or Nexus Mods.
+[*]Open your game folder (...\SpaceBourne 2, the one with SpaceBourne2.exe) and extract the zip [b]there[/b]. It creates SB2\Binaries\Win64\Mods\SplitControls and switches itself on.
+[*]Already have UE4SS (for example from HTR or SB2 HOTAS)? Done. If not, get [url=https://github.com/UE4SS-RE/RE-UE4SS/releases/tag/v3.0.1]RE-UE4SS 3.0.1[/url] and copy dwmapi.dll, UE4SS.dll and UE4SS-settings.ini into SpaceBourne 2\SB2\Binaries\Win64\.
+[/list]
+
+[b]Settings:[/b] edit Mods\SplitControls\scripts\config.lua, then restart the game.
+[b]Uninstall:[/b] delete the SplitControls folder. The mod changes things in memory only and writes no save and no settings file.
+
+There are no keys: the mod just works in the background.
+
+[line]
+[size=5][b]Check it yourself (2 minutes)[/b][/size]
+
+With your controller, the defaults and the game's "Invert gamepad look" off:
+
+[list=1]
+[*][b]On foot:[/b] hold the right stick [b]down[/b] → the aim goes [b]down[/b]. Hold it [b]up[/b] → the aim goes [b]up[/b].
+[*]In your ship, in open space: hold the right stick [b]down[/b] (pull back) → the nose goes [b]up[/b]. Hold it [b]up[/b] (push forward) → the nose goes [b]down[/b].
+[*]Open and close the pause menu, then repeat step 2.
+[*]Switch the controller off and on (or unplug it) while flying, wait 5 seconds, repeat step 2.
+[*]Mouse, on foot and in the ship: mouse up → aim / nose up.
+[/list]
+
+If a direction is the wrong way round, flip that setting in config.lua and please report it. Mods\SplitControls\splitcontrols.log shows what the mod did.
+
+[line]
+[size=5][b]How it works (short)[/b][/size]
+
+[list]
+[*][b]Gamepad.[/b] The game reads the right stick through two actions: one on foot, one in ships. The mod puts one [i]Negate[/i] modifier on the ship binding (or removes it), both in the game's mapping context and in the live list the game reads. Enhanced Input applies it natively, so nothing runs per frame. It applies again on every ship/foot switch, when the pause menu closes, and within 5 seconds when the game's own control system rewrites the bindings (it does that when a controller connects, for example).
+[*][b]Mouse.[/b] The game multiplies mouse pitch by its own "inverted" flags (one for the character, one for ships and vehicles). The mod sets those flags right after the game does.
+[/list]
+
+All details, the game code behind it and the reasons for each choice: [url=https://github.com/hubertdungen/SpaceBourne2-SplitControls/blob/main/DESIGN.md]DESIGN.md[/url].
+
+[line]
+[size=5][b]Tested[/b][/size]
+
+In game on 2026-10-30 (game build of 2026-10-26, UE4SS 3.0.1), with HTR installed:
+
+[list]
+[*]Bindings: on-foot look stays normal, ship look gets the Negate (inverted). The game's own rewrite of all bindings (SB2.Controls.Apply) was undone within a second, including the live list.
+[*]Direction: the game's own input injection into the ship look action lifts the nose for a positive value, and a positive on-foot stick value lowers the view, which gives exactly the defaults above with the bindings the mod sets.
+[*]The game's invert options are overridden as configured (on foot and in the ship); on foot, mouse up raised the aim.
+[*]Frame times over 30 s, same save, with and without the mod:
+[/list]
+
+[code]
+         without                        with Split Controls
+On foot  104 fps, p99 21 ms, max 28 ms  105 fps, p99 20 ms, max 22 ms
+Ship     120 fps, p99 10 ms, max 20 ms  120 fps, p99 10 ms, max 18 ms
+[/code]
+
+Not covered by the automated test: a physical stick and the mouse in the ship. Please do the two-minute check above once.
+
+[line]
+[size=5][b]Known limitations[/b][/size]
+
+[list]
+[*]Free-look camera views in ships read the raw mouse, in the game and with the mod alike.
+[*]If the game itself also sees a HOTAS as a gamepad, ShipGamepad also applies to what the game binds to ship pitch on that device. The [url=https://github.com/hubertdungen/SpaceBourne2-HOTAS]SB2 HOTAS[/url] mod steers the ship directly and is not affected.
+[*]After you change config.lua, restart the game.
+[/list]
+
+[line]
+[size=5][b]Compatibility[/b][/size]
+
+Works together with Hardcore Tactical Realism and SB2 HOTAS (different game functions, no shared keys). No game files are replaced.
+
+[line]
+[size=5][b]Part of the SpaceBourne 2 realism set[/b][/size]
+
+[list]
+[*][b]Hardcore Tactical Realism (HTR)[/b], the on-foot combat overhaul: [url=https://github.com/hubertdungen/SpaceBourne2-HardcoreTacticalRealism]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/4]Nexus Mods[/url] · [url=https://steamcommunity.com/app/1646850/discussions/0/573805072991123580]Steam discussion[/url]
+[*][b][url=https://github.com/hubertdungen/SpaceBourne2-HOTAS]SB2 HOTAS[/url][/b]: analog joystick and pedal flight
+[*][b]Split Controls[/b]: this mod
+[*]Coming: [b]Silent Ops[/b] (stealth and takedowns), [b]Gear Without Levels[/b], [b]Tactical Engineering[/b] (turrets), [b]Faction Power[/b], [b]Tactical First Person[/b]. One installer for the whole set is planned too.
+[/list]
+
+[line]
+[size=5][b]License[/b][/size]
+
+MIT (see LICENSE). Uses [url=https://github.com/UE4SS-RE/RE-UE4SS]UE4SS[/url] (MIT). Contains no game files.
