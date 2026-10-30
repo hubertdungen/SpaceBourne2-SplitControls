@@ -103,7 +103,7 @@ keys). No game files are replaced.
 
 - **Hardcore Tactical Realism (HTR)**, the on-foot combat overhaul:
   [GitHub](https://github.com/hubertdungen/SpaceBourne2-HardcoreTacticalRealism) ·
-  [Nexus Mods](https://www.nexusmods.com/games/spacebourne2/mods/4) ·
+  [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/4) ·
   [Steam discussion](https://steamcommunity.com/app/1646850/discussions/0/573805072991123580)
 - **[SB2 HOTAS](https://github.com/hubertdungen/SpaceBourne2-HOTAS)**: analog joystick and pedal
   flight
