@@ -111,8 +111,11 @@ keys). No game files are replaced.
 - **Silent Ops**, stealth and takedowns:
   [GitHub](https://github.com/hubertdungen/SpaceBourne2-SilentOps) ·
   [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/6)
-- Coming: **Gear Without Levels**, **Tactical Engineering** (turrets), **Faction Power**,
-  **Tactical First Person**. One installer for the whole set is planned too.
+- **Gear Without Levels**, gear usable at any level:
+  [GitHub](https://github.com/hubertdungen/SpaceBourne2-GearWithoutLevels) ·
+  [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/7)
+- Coming: **Tactical Engineering** (turrets), **Faction Power**, **Tactical First Person**.
+  One installer for the whole set is planned too.
 
 ## License
 
