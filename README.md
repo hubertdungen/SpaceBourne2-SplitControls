@@ -23,7 +23,7 @@ Split Controls is a Lua mod for **UE4SS**, the script loader most SpaceBourne 2 
 
 1. Download `SplitControls-0.1.0.zip` from
    [GitHub Releases](https://github.com/hubertdungen/SpaceBourne2-SplitControls/releases/latest)
-   or Nexus Mods.
+   or [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/5).
 2. Open your game folder (`...\SpaceBourne 2`, the one with `SpaceBourne2.exe`) and extract the
    zip **there**. It creates `SB2\Binaries\Win64\Mods\SplitControls` and switches itself on.
 3. Already have UE4SS (for example from HTR or SB2 HOTAS)? Done. If not, get
