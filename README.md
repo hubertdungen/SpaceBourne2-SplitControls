@@ -108,9 +108,11 @@ keys). No game files are replaced.
 - **[SB2 HOTAS](https://github.com/hubertdungen/SpaceBourne2-HOTAS)**: analog joystick and pedal
   flight
 - **Split Controls**: this mod
-- Coming: **Silent Ops** (stealth and takedowns), **Gear Without Levels**, **Tactical
-  Engineering** (turrets), **Faction Power**, **Tactical First Person**. One installer for the
-  whole set is planned too.
+- **Silent Ops**, stealth and takedowns:
+  [GitHub](https://github.com/hubertdungen/SpaceBourne2-SilentOps) ·
+  [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/6)
+- Coming: **Gear Without Levels**, **Tactical Engineering** (turrets), **Faction Power**,
+  **Tactical First Person**. One installer for the whole set is planned too.
 
 ## License
 
