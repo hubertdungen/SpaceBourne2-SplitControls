@@ -2,13 +2,12 @@
 
 Fly with an inverted stick and still aim normally on foot. SpaceBourne 2 has one "Invert gamepad look" option for everything, and its "Invert Mouse Y-Axis (Character)" option also flips the gamepad on foot. Split Controls gives you four independent settings:
 
-[code]
-Setting (config.lua)  Default          Means
-ShipGamepad           true (inverted)  right stick pulled back = nose up (flight style)
-ShipMouse             false (normal)   mouse up = nose up
-FootGamepad           false (normal)   right stick up = aim up
-FootMouse             false (normal)   mouse up = aim up
-[/code]
+[list]
+[*][b]ShipGamepad[/b]: true (inverted) - right stick pulled back = nose up (flight style)
+[*][b]ShipMouse[/b]: false (normal) - mouse up = nose up
+[*][b]FootGamepad[/b]: false (normal) - right stick up = aim up
+[*][b]FootMouse[/b]: false (normal) - mouse up = aim up
+[/list]
 
 Each setting takes true (inverted), false (normal) or "game" (leave it to the game's own options). Ground vehicles (hover bikes) use the ship controls in this game, so they follow the Ship settings. While a setting is true or false, it wins over the matching game option.
 
@@ -18,7 +17,7 @@ Each setting takes true (inverted), false (normal) or "game" (leave it to the ga
 Split Controls is a Lua mod for [b]UE4SS[/b], the script loader most SpaceBourne 2 mods use.
 
 [list=1]
-[*]Download SplitControls-0.1.0.zip from [url=https://github.com/hubertdungen/SpaceBourne2-SplitControls/releases/latest]GitHub Releases[/url] or Nexus Mods.
+[*]Download SplitControls-0.1.0.zip from [url=https://github.com/hubertdungen/SpaceBourne2-SplitControls/releases/latest]GitHub Releases[/url] or [url=https://www.nexusmods.com/spacebourne2/mods/5]Nexus Mods[/url].
 [*]Open your game folder (...\SpaceBourne 2, the one with SpaceBourne2.exe) and extract the zip [b]there[/b]. It creates SB2\Binaries\Win64\Mods\SplitControls and switches itself on.
 [*]Already have UE4SS (for example from HTR or SB2 HOTAS)? Done. If not, get [url=https://github.com/UE4SS-RE/RE-UE4SS/releases/tag/v3.0.1]RE-UE4SS 3.0.1[/url] and copy dwmapi.dll, UE4SS.dll and UE4SS-settings.ini into SpaceBourne 2\SB2\Binaries\Win64\.
 [/list]
@@ -54,26 +53,6 @@ If a direction is the wrong way round, flip that setting in config.lua and pleas
 All details, the game code behind it and the reasons for each choice: [url=https://github.com/hubertdungen/SpaceBourne2-SplitControls/blob/main/DESIGN.md]DESIGN.md[/url].
 
 [line]
-[size=5][b]Tested[/b][/size]
-
-In game on 2026-10-30 (game build of 2026-10-26, UE4SS 3.0.1), with HTR installed:
-
-[list]
-[*]Bindings: on-foot look stays normal, ship look gets the Negate (inverted). The game's own rewrite of all bindings (SB2.Controls.Apply) was undone within a second, including the live list.
-[*]Direction: the game's own input injection into the ship look action lifts the nose for a positive value, and a positive on-foot stick value lowers the view, which gives exactly the defaults above with the bindings the mod sets.
-[*]The game's invert options are overridden as configured (on foot and in the ship); on foot, mouse up raised the aim.
-[*]Frame times over 30 s, same save, with and without the mod:
-[/list]
-
-[code]
-         without                        with Split Controls
-On foot  104 fps, p99 21 ms, max 28 ms  105 fps, p99 20 ms, max 22 ms
-Ship     120 fps, p99 10 ms, max 20 ms  120 fps, p99 10 ms, max 18 ms
-[/code]
-
-Not covered by the automated test: a physical stick and the mouse in the ship. Please do the two-minute check above once.
-
-[line]
 [size=5][b]Known limitations[/b][/size]
 
 [list]
@@ -90,12 +69,21 @@ Works together with Hardcore Tactical Realism and SB2 HOTAS (different game func
 [line]
 [size=5][b]Part of the SpaceBourne 2 realism set[/b][/size]
 
+This mod is part of the realism set, built around [url=https://www.nexusmods.com/spacebourne2/mods/4]Hardcore Tactical Realism[/url] as the core mod. HTR is not required: this mod works on its own or with any of the others. [b]Install them all at once[/b] with the [url=https://www.nexusmods.com/spacebourne2/mods/11]SpaceBourne 2 Realism installer[/url] ([url=https://github.com/hubertdungen/SpaceBourne2-Realism]GitHub[/url]): tick the mods you want, and it switches them on and keeps them up to date.
+
 [list]
-[*][b]Hardcore Tactical Realism (HTR)[/b], the on-foot combat overhaul: [url=https://github.com/hubertdungen/SpaceBourne2-HardcoreTacticalRealism]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/4]Nexus Mods[/url] · [url=https://steamcommunity.com/app/1646850/discussions/0/573805072991123580]Steam discussion[/url]
-[*][b][url=https://github.com/hubertdungen/SpaceBourne2-HOTAS]SB2 HOTAS[/url][/b]: analog joystick and pedal flight
-[*][b]Split Controls[/b]: this mod
-[*]Coming: [b]Silent Ops[/b] (stealth and takedowns), [b]Gear Without Levels[/b], [b]Tactical Engineering[/b] (turrets), [b]Faction Power[/b], [b]Tactical First Person[/b]. One installer for the whole set is planned too.
+[*][b]Hardcore Tactical Realism (HTR)[/b]: the core: realistic ballistics, wounds and tactical AI. [url=https://github.com/hubertdungen/SpaceBourne2-HardcoreTacticalRealism]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/4]Nexus[/url] · [url=https://steamcommunity.com/app/1646850/discussions/0/573805072991123580/]Steam[/url]
+[*][b]Split Controls[/b] [i](this mod)[/i]: separate look inversion for ships and on foot. [url=https://github.com/hubertdungen/SpaceBourne2-SplitControls]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/5]Nexus[/url]
+[*][b]Silent Ops[/b]: realistic stealth, suppressors and silent takedowns. [url=https://github.com/hubertdungen/SpaceBourne2-SilentOps]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/6]Nexus[/url]
+[*][b]Gear Without Levels[/b]: any weapon or suit at any level, with small penalties. [url=https://github.com/hubertdungen/SpaceBourne2-GearWithoutLevels]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/7]Nexus[/url]
+[*][b]SB2 HOTAS[/b]: joystick, HOTAS, pedals, head tracking and triple screen. [url=https://github.com/hubertdungen/SpaceBourne2-HOTAS]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/8]Nexus[/url]
+[*][b]Faction Power[/b]: dungeons, sales and missions earn your faction power. [url=https://github.com/hubertdungen/SpaceBourne2-FactionPower]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/9]Nexus[/url]
+[*][b]Tactical Engineering[/b]: deployable turrets and barricades that take time to set up. [url=https://github.com/hubertdungen/SpaceBourne2-TacticalEngineering]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/10]Nexus[/url]
+[*][b]Ammo Discipline[/b]: realistic ammo limits and scavenging. [url=https://github.com/hubertdungen/SpaceBourne2-AmmoDiscipline]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/12]Nexus[/url]
+[*][b]Ground Waypoints[/b]: planet waypoints on foot and on the hoverbike. [url=https://github.com/hubertdungen/SpaceBourne2-GroundWaypoints]GitHub[/url] · [url=https://www.nexusmods.com/spacebourne2/mods/13]Nexus[/url]
 [/list]
+
+Coming soon: Tactical First Person, Get Out of the Way.
 
 [line]
 [size=5][b]License[/b][/size]
