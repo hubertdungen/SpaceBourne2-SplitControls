@@ -105,8 +105,9 @@ keys). No game files are replaced.
   [GitHub](https://github.com/hubertdungen/SpaceBourne2-HardcoreTacticalRealism) ·
   [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/4) ·
   [Steam discussion](https://steamcommunity.com/app/1646850/discussions/0/573805072991123580)
-- **[SB2 HOTAS](https://github.com/hubertdungen/SpaceBourne2-HOTAS)**: analog joystick and pedal
-  flight
+- **SB2 HOTAS**, analog joystick and pedal flight:
+  [GitHub](https://github.com/hubertdungen/SpaceBourne2-HOTAS) ·
+  [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/8)
 - **Split Controls**: this mod
 - **Silent Ops**, stealth and takedowns:
   [GitHub](https://github.com/hubertdungen/SpaceBourne2-SilentOps) ·
@@ -114,7 +115,10 @@ keys). No game files are replaced.
 - **Gear Without Levels**, gear usable at any level:
   [GitHub](https://github.com/hubertdungen/SpaceBourne2-GearWithoutLevels) ·
   [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/7)
-- Coming: **Tactical Engineering** (turrets), **Faction Power**, **Tactical First Person**.
+- **Faction Power**, your faction gains power from dungeons, sales and missions:
+  [GitHub](https://github.com/hubertdungen/SpaceBourne2-FactionPower) ·
+  [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/9)
+- Coming: **Tactical Engineering** (turrets), **Tactical First Person**.
   One installer for the whole set is planned too.
 
 ## License
