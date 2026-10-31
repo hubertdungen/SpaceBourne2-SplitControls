@@ -19,7 +19,7 @@ options). Ground vehicles (hover bikes) use the ship controls in this game, so t
 
 ## Install (1 minute)
 
-Split Controls is a Lua mod for **UE4SS**, the script loader most SpaceBourne 2 mods use.
+Split Controls is a Lua mod for **UE4SS**, a free script loader for Unreal Engine games.
 
 1. Download `SplitControls-0.1.0.zip` from
    [GitHub Releases](https://github.com/hubertdungen/SpaceBourne2-SplitControls/releases/latest)
