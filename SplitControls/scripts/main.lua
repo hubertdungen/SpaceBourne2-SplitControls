@@ -33,7 +33,7 @@
   Nothing is hooked per frame (except by the "hook" fallback method, see config.lua).
 ]]
 
-local VERSION = "0.1.0"
+local VERSION = "0.1.1"
 
 -- Game names: the only block to fix after a game update ----------------------------
 local G = {}
@@ -102,6 +102,9 @@ local function warn(msg)
     print("[SplitControls] " .. msg .. "\n")
     log("WARN " .. msg)
 end
+-- Timed work on the game thread (gametick.lua, the set's shared file). No LoopAsync (UE4SS crash).
+local GT = require("sc.gametick")
+GT.log = function(msg) warn(msg) end
 
 -- Settings --------------------------------------------------------------------------
 local defaults = { Enabled = true, ShipGamepad = true, ShipMouse = false, FootGamepad = false, FootMouse = false,
@@ -646,40 +649,43 @@ local function onUpdateControls(self, ship, vehicle)
     onControls(self:get(), "controls update", s and "ship" or (v and "vehicle" or "foot"))
 end
 
--- Background loop (the work runs on the game thread):
+-- Once a second on the game thread:
 --  * wait for the controller class: a class that is not loaded costs ~37 ms per look, so
 --    the pause grows 1, 2, 4, 8, 16 s; once found it is re-checked every 10 s for ~0 ms
 --  * every CheckSeconds, notice when the game rewrote the look bindings
 local nextTry, retry, firstDone = 0, 1, false
-LoopAsync(1000, function()
-    ExecuteInGameThread(function()
-        local now = os.clock()
-        local ok, err = pcall(periodicCheck, now)
-        if not ok then warn("binding check: " .. tostring(err)) end
-        if now < nextTry then return end
-        ok, err = pcall(function()
-            local c = StaticFindObject(G.Controller)
-            if valid(c) then
-                nextTry, retry = now + 10, 1
-                if hooked[G.Fn.UpdateControls] ~= addr(c) then
-                    hook(G.Fn.UpdateControls, onUpdateControls, "Q1Controller.UpdateControls")
-                    if not firstDone then
-                        -- The game may already be running (mod loaded late): apply once now.
-                        -- One object scan (~50 ms), once per session.
-                        firstDone = true
-                        for _, pc in ipairs(FindAllOf("Q1Controller_C") or {}) do
-                            if valid(pc) and not (pathOf(pc) or "Default__"):find("Default__", 1, true) then
-                                onControls(pc, "start")
-                                break
-                            end
+-- On the game thread, pumped by the player's and the ships' ticks (gametick.lua); started after
+-- each load or possession (ClientRestart). Until 0.1.0 this was LoopAsync + ExecuteInGameThread:
+-- from UE4SS's async thread that writes a map all mods share without a lock, and two mods at once
+-- crashed the game (UE4SS.dll+0x87c104).
+GT.drive(GT.FOOT_TICK, "foot")
+GT.drive(GT.SHIP_TICK, "ship")
+GT.boot()
+GT.every(1.0, function(now)
+    local ok, err = pcall(periodicCheck, now)
+    if not ok then warn("binding check: " .. tostring(err)) end
+    if now < nextTry then return end
+    ok, err = pcall(function()
+        local c = StaticFindObject(G.Controller)
+        if valid(c) then
+            nextTry, retry = now + 10, 1
+            if hooked[G.Fn.UpdateControls] ~= addr(c) then
+                hook(G.Fn.UpdateControls, onUpdateControls, "Q1Controller.UpdateControls")
+                if not firstDone then
+                    -- The game may already be running (mod loaded late): apply once now.
+                    -- One object scan (~50 ms), once per session.
+                    firstDone = true
+                    for _, pc in ipairs(FindAllOf("Q1Controller_C") or {}) do
+                        if valid(pc) and not (pathOf(pc) or "Default__"):find("Default__", 1, true) then
+                            onControls(pc, "start")
+                            break
                         end
                     end
                 end
-            else
-                nextTry, retry = now + retry, math.min(retry * 2, 16)
             end
-        end)
-        if not ok then warn("controller check: " .. tostring(err)) end
+        else
+            nextTry, retry = now + retry, math.min(retry * 2, 16)
+        end
     end)
-    return false
+    if not ok then warn("controller check: " .. tostring(err)) end
 end)

@@ -21,7 +21,7 @@ options). Ground vehicles (hover bikes) use the ship controls in this game, so t
 
 Split Controls is a Lua mod for **UE4SS**, a free script loader for Unreal Engine games.
 
-1. Download `SplitControls-0.1.0.zip` from
+1. Download `SplitControls-0.1.1.zip` from
    [GitHub Releases](https://github.com/hubertdungen/SpaceBourne2-SplitControls/releases/latest)
    or [Nexus Mods](https://www.nexusmods.com/spacebourne2/mods/5).
 2. Open your game folder (`...\SpaceBourne 2`, the one with `SpaceBourne2.exe`) and extract the
@@ -61,6 +61,8 @@ If a direction is the wrong way round, flip that setting in `config.lua` and ple
   (it does that when a controller connects, for example).
 - **Mouse.** The game multiplies mouse pitch by its own "inverted" flags (one for the
   character, one for ships and vehicles). The mod sets those flags right after the game does.
+- **No background loops** (since 0.1.1). The once-a-second check runs on the game thread, from the
+  game's own ticks: UE4SS background loops could crash UE4SS 3.0.1 when several mods used them.
 
 All details, the game code behind it and the reasons for each choice: [DESIGN.md](DESIGN.md).
 
