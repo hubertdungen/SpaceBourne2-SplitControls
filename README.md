@@ -61,8 +61,8 @@ If a direction is the wrong way round, flip that setting in `config.lua` and ple
   (it does that when a controller connects, for example).
 - **Mouse.** The game multiplies mouse pitch by its own "inverted" flags (one for the
   character, one for ships and vehicles). The mod sets those flags right after the game does.
-- **No background loops** (since 0.1.1). The once-a-second check runs on the game thread, from the
-  game's own ticks: UE4SS background loops could crash UE4SS 3.0.1 when several mods used them.
+- **No background loops.** The once-a-second check runs on the game thread, from the game's own
+  ticks: UE4SS background loops can crash UE4SS 3.0.1 when several mods use them.
 
 All details, the game code behind it and the reasons for each choice: [DESIGN.md](DESIGN.md).
 
