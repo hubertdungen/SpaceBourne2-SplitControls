@@ -654,12 +654,11 @@ end
 --    the pause grows 1, 2, 4, 8, 16 s; once found it is re-checked every 10 s for ~0 ms
 --  * every CheckSeconds, notice when the game rewrote the look bindings
 local nextTry, retry, firstDone = 0, 1, false
--- On the game thread, pumped by the player's and the ships' ticks (gametick.lua); started after
+-- On the game thread, pumped by the HUD's drawing (gametick.lua); started after
 -- each load or possession (ClientRestart). Until 0.1.0 this was LoopAsync + ExecuteInGameThread:
 -- from UE4SS's async thread that writes a map all mods share without a lock, and two mods at once
 -- crashed the game (UE4SS.dll+0x87c104).
-GT.drive(GT.FOOT_TICK, "foot")
-GT.drive(GT.SHIP_TICK, "ship")
+GT.drive(GT.HUD_TICK, "hud") -- the player's HUD drawing: once per frame, on foot and in ships
 GT.boot()
 GT.every(1.0, function(now)
     local ok, err = pcall(periodicCheck, now)
