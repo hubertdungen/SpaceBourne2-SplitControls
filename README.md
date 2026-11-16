@@ -124,3 +124,6 @@ Coming soon: Tactical First Person.
 
 MIT (see `LICENSE`). Uses [UE4SS](https://github.com/UE4SS-RE/RE-UE4SS) (MIT). Contains no game
 files.
+
+
+<p align="center"><a href="https://dlforge.dungenlabs.com"><img src="docs/branding/dlforge-logo.svg" alt="DL Forge" width="120"></a><br><a href="https://dlforge.dungenlabs.com">DL Forge</a></p>
